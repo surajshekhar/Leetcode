@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
         vector<int> s;
-        set<int>st;
+        unordered_set<int>st;
         for(int i=0;i<nums.size();i++){
             if(st.find(nums[i])!=st.end()){
                 s.push_back(nums[i]);
