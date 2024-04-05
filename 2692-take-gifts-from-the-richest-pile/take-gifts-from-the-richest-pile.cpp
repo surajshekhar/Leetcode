@@ -6,7 +6,7 @@ public:
             pq.push(i);
         }
         int x;
-        long long int ans=0;
+        long long  ans=0;
         while (k--) {
             x = pq.top();
             pq.pop();
