@@ -1,16 +1,26 @@
 class Solution {
 public:
-    int timeRequiredToBuy(vector<int>& tickets, int k) {
-        int ans=0;
-        for(int i=0;i<tickets.size();i++){
-            if(i<=k){
-                ans+=min(tickets[i],tickets[k]);
-            }
-            else if (i>k){
-                ans+=min(tickets[i],tickets[k]-1);
-            }
-
+  int timeRequiredToBuy(vector<int>& tickets, int k) {
+           map<int, int> mp;
+        for(int i = 0; i < tickets.size(); i++) {
+             mp[i] = tickets[i];
         }
-        return ans;
+        
+        int cnt = 0;
+        while (mp[k] > 0) {
+            bool flag = false;
+            for(auto& p : mp) {
+                if (p.second > 0) {
+                    cnt++;
+                    p.second--;
+                    if (p.first == k && p.second == 0) {
+                        flag = true;
+                        break;
+                    }
+                }
+            }
+            if (flag) break;
+        }
+        return cnt;
     }
 };
