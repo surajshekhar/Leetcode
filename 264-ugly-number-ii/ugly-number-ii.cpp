@@ -1,28 +1,25 @@
 class Solution {
 public:
-    typedef long long int lll;
     int nthUglyNumber(int n) {
-        priority_queue<lll,vector<lll>,greater<lll>> minh;
+        vector<int> primes = {2, 3, 5};
+        priority_queue<long, vector<long>, greater<long>> uglyHeap;
+        unordered_set<long> visited;
         
-        minh.push(1);
-       if(n==1)    return 1;
-        while(n!=1){
-            lll temp=minh.top();
-            minh.pop();
-            if(temp%2==0){
-                minh.push(temp*2);
+        uglyHeap.push(1);
+        visited.insert(1);
+        
+        long curr;
+        for (int i = 0; i < n; ++i) {
+            curr = uglyHeap.top();
+            uglyHeap.pop();
+            for (int prime : primes) {
+                long new_ugly = curr * prime;
+                if (visited.find(new_ugly) == visited.end()) {
+                    uglyHeap.push(new_ugly);
+                    visited.insert(new_ugly);
+                }
             }
-            else if(temp%3==0){
-                minh.push(temp*2);
-                minh.push(temp*3);
-            }
-            else{
-                minh.push(temp*2);
-                minh.push(temp*3);
-                minh.push(temp*5);
-            }            
-            n--;
         }
-        return minh.top();
+        return (int)curr;
     }
 };
