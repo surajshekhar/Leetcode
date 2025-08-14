@@ -1,15 +1,16 @@
 class Solution {
 public:
     string largestGoodInteger(string num) {
-        int maxi=-1;
-        for(int i=0;i<num.size()-2;i++){
-            if(num[i]==num[i+1] && num[i]==num[i+2])
-            maxi=max(maxi,stoi(num.substr(i,3)));
+        if (num.size() < 3) return "";
+
+        char maxDigit = 0;
+        for (int i = 2; i < num.size(); i++) {
+            if (num[i] == num[i-1] && num[i-1] == num[i-2]) {
+                maxDigit = max(maxDigit, num[i]);
+            }
         }
-        if(maxi==0)
-        return "000";
-        if(maxi!=-1)
-        return to_string(maxi);
-        return "";
+
+        if (maxDigit == 0) return ""; 
+        return string(3, maxDigit);
     }
 };
